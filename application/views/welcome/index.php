@@ -1,3 +1,5 @@
+<?php $this->load->helper('url'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +61,11 @@ code {
 
 
 <p><br />Page rendered in {elapsed_time} seconds</p>
+
+
+<p>Test e-mail</p>
+
+<?php echo anchor('welcome/email','Test e-mail'); ?>
 
 </body>
 </html>
