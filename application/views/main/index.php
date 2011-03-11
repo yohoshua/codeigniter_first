@@ -1,4 +1,4 @@
-<?php $this->load->helper('url') ?>
+
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">

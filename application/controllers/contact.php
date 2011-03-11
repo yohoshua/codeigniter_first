@@ -9,11 +9,27 @@ class Contact extends CI_Controller {
 	
 	function compose()
 	{
+		$this->load->helper('form');
 		$this->load->view('contact/compose');
+
 	}
 	
 	function create()
 	{
+		date_default_timezone_set ('America/Chicago');
+
+
+		$this->load->library('form_validation');
+		
+		$this->form_validation->set_error_delimiters('<li id="error">', '</li>');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('contact/compose');
+		}
+		else
+		{
+
 		$data=array(
 			"email"   =>$this->input->post('email'),
 			"name"    =>$this->input->post('name'),
@@ -29,6 +45,22 @@ class Contact extends CI_Controller {
 		$this->email->send();
 
 		$this->load->view('contact/create',$data);
+		
+		}
+	}
+	
+	function bad_words_check($str)
+	{
+		if (preg_match('/(crap|shit|fuck|damn)/i',$str))
+		{
+			$this->form_validation->set_message('bad_words_check','No cursing. My form, my rules.');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+		
 	}
 
 }

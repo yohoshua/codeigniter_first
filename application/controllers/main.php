@@ -9,6 +9,7 @@ class Main extends CI_Controller {
 	
 	function index()
 	{
+		$this->load->helper('url');
 		$this->load->view('main/index');
 	}
 
