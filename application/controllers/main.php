@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Main extends MY_Controller {
 
 	function __construct()
 	{
@@ -8,9 +8,9 @@ class Main extends CI_Controller {
 	}
 	
 	function index()
-	{
+	{	
 		$this->load->helper('url');
-		$this->load->view('main/index');
+		$this->layout->view('main/index',$this->data);
 	}
 
 }
