@@ -6,7 +6,7 @@
 		<title><?php echo $headtitle ?></title>
 	</head>
 	
-	<body style="background:purple">
+	<body style="background:lightgrey">
 		<div>
 			<?php echo $yield ?>
 		</div>

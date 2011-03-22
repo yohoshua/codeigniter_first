@@ -11,7 +11,8 @@
 </head>
 <body>
 	
-	Your e-mail has been submitted, <?php echo $name?>.
+	Your e-mail has been submitted, <?php echo $name?>.<br/>
+	Your e-mail has been submitted to <?php echo $destination ?>
 
 </body>
 </html>

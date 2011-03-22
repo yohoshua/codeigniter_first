@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Contact extends CI_Controller {
+class Contact extends MY_Controller {
 
 	function __construct()
 	{
@@ -10,12 +10,26 @@ class Contact extends CI_Controller {
 	function compose()
 	{
 		$this->load->helper('form');
-		$this->load->view('contact/compose');
+		$this->layout->view('contact/compose',$this->data);
 
+	}
+
+	function ajaxcompose()
+	{
+		$this->load->helper('form');
+		$this->layout->view('contact/ajaxcompose',$this->data);
+	}
+	
+	function ajaxcreate()
+	{
+		$this->data["response"]=array("success" => "true");
+		$this->data["jsonresponse"]=json_encode($this->data["response"],TRUE);
+		$this->load->view('contact/ajaxdone',$this->data);
 	}
 	
 	function create()
 	{
+//		$this->load->database();
 		date_default_timezone_set ('America/Chicago');
 
 
@@ -29,22 +43,27 @@ class Contact extends CI_Controller {
 		}
 		else
 		{
-
-		$data=array(
-			"email"   =>$this->input->post('email'),
-			"name"    =>$this->input->post('name'),
-			"content" =>$this->input->post('content')
+			
+		$destinations=array(
+			"1" => "joshjyang@gmail.com",
+			"2" => "cewalker@northwestern.edu"
 		);
+
+		$this->data["destination"]=$destinations[$this->input->post('to')];
+
+		$this->data["email"]=$this->input->post('email');
+		$this->data["name"]=$this->input->post('name');
+		$this->data["content"]=$this->input->post('content');
 		
 		$this->load->library('email');
-		$this->email->from($data['email'], $data['name']);
-		$this->email->to('joshyangnuhs@gmail.com', 'Josh Yang 2');
+		$this->email->from($this->data['email'], $this->data['name']);
+		$this->email->to($this->data['destination'], $this->data['destination']);
 		$this->email->subject('Web correspondence');
-		$this->email->message($data['content']);
+		$this->email->message($this->data['content']);
 		
 		$this->email->send();
 
-		$this->load->view('contact/create',$data);
+		$this->layout->view('contact/create',$this->data);
 		
 		}
 	}
